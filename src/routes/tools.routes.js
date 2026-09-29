@@ -38,6 +38,22 @@ toolsRouter.get('/:id', (req, res) => {
   res.json({ data: tool });
 });
 
+if (!CATEGORIES.includes(body.category)) {
+    errors.category = 'category must be one of: power, hand, garden, cleaning';
+  }
+
+  if (!CONDITIONS.includes(body.condition)) {
+    errors.condition = 'condition must be one of: new, good, worn';
+  }
+
+  if (typeof body.available !== 'boolean') {
+    errors.available = 'available must be true or false';
+  }
+
+  if (!Number.isInteger(body.maxLoanDays) || body.maxLoanDays < 1 || body.maxLoanDays > 14) {
+    errors.maxLoanDays = 'maxLoanDays must be a whole number from 1 to 14';
+  }
+
 // TODO (you): STEP 5. POST /api/tools adds a tool.
 
 // TODO (you): STEP 6. PUT /api/tools/:id changes a tool.
